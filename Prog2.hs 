@@ -1,0 +1,65 @@
+{- ##################################
+   Kamile Forbes
+   Homework 2.
+   ################################## -}
+module Prog2 where
+-- checks the first and last number to see if theyre the same
+threeDifferent :: Integer -> Integer -> Integer -> Bool
+threeDifferent x y z = (x /= y) && (x/=z)
+
+-- simulated sum with recursion
+sum' :: Integer ->  Integer
+sum' n
+      |n == 0 = 1
+      |n > 1 = sum'(n-1)+n
+      |otherwise = 1
+
+--mimic range product using abs to keep variables positive 
+abssum :: Integer -> Integer -> Integer
+abssum x y
+          | abs x ==  abs y =  x
+          | abs x <  abs y =  abs(x + abssum (x+1) y)
+
+-- used floor and sqrt to simulate integerSqrt 
+integerSqrt :: Integer -> Integer
+integerSqrt n
+            |n <= 0 = error "Error! number less than or equal 0"
+            |n > 0 = floor(sqrt(fromIntegral n))
+
+-- used recursion to simulate exponet
+exponet' :: Integer -> Integer -> Integer
+exponet' num num1
+                |num1 == 0 = 1
+                |num1 > 0 = num * exponet' num (num1-1)
+
+--used gaurds to match patterns 
+largeSmall :: (Integer, Integer,Integer)-> (Integer,Integer)
+largeSmall (x,y,z)
+          |x > z && y<z = (x,y)
+          |x > y && z<y = (x,z)
+          |y > x && z<x = (y,z)
+          |y > z && x<z = (y,x)
+          |z > x && y<x = (z,y)
+          |z > y && x<y = (z,x)
+
+-- swap the middle varibles, used pattern matching 
+swap::(Char,Char,Char,Char) -> (Char,Char,Char,Char)
+swap (m,n,o,p) = (m,o,n,p)
+
+-- helper function to negateodds
+oddmkneg :: Integer -> Integer
+oddmkneg x = if mod x 2 == 0 then x else (-x)
+
+-- negates the odds in a list
+negateodds :: [Integer] -> [Integer]
+negateodds ns = [oddmkneg n | n<-ns]
+
+--list gen to loop through list and check for element
+matches :: Integer -> [Integer] -> [Integer]
+matches x xs = [el | el <- xs , el == x]
+
+--checks if a element is in a list using the matches function as a helper 
+element :: Integer -> [Integer] -> Bool
+element x xs
+            |matches x xs == [] = False
+            |otherwise = True
